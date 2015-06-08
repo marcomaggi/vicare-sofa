@@ -1,0 +1,84 @@
+Subject: [announce] Vicare/SOFA revision 0.4d0
+
+			      Vicare/SOFA
+			      ===========
+
+
+This package is a distribution of Scheme libraries for Vicare Scheme, an
+R6RS compliant  Scheme implementation in  the form of a  native compiler
+for  x86  architectures,  officially supporting  GNU+Linux  systems;  it
+provides  bindings  for  the  C   language  library  SOFA,  Standars  of
+Fundamental Astronomy.
+
+  The International Astronomical Union's SOFA Collection consists of two
+libraries of  routines, one  coded in  Fortran 77 the  other in  ANSI C.
+There is  a suite of  vector/matrix routines and various  utilities that
+underpin  the  astronomy  algorithms,  which include  routines  for  the
+following:
+
+* Calendars
+
+* Time Scales
+
+* Earth rotation and sidereal time
+
+* Ephemerides (medium precision)
+
+* Geocentric/geodetic transformations
+
+* Precession, nutation, polar motion
+
+* Star space motion
+
+* Star catalogue conversion
+
+  *NOTE* The last  time the author bothered to update  this paragraph he
+had tested the SOFA C library version: "SOFA-Issue: 2013-12-02" packaged
+in ATSOFA 0.2d0.
+
+  This package makes use of the GNU Autotools.
+
+  The latest version of this package can be downloaded from:
+
+	<https://bitbucket.org/marcomaggi/vicare-sofa/downloads>
+
+the home page of the Vicare project is at:
+
+	       <http://marcomaggi.github.io/vicare.html>
+
+development takes place at:
+
+	      <http://github.com/marcomaggi/vicare-sofa/>
+
+and as backup at:
+
+	<https://bitbucket.org/marcomaggi/vicare-sofa/downloads>
+
+  The SOFA libraries  along with documentation and other  goodies can be
+found at:
+
+		       <http://www.iausofa.org/>
+
+but it is suggested to use the repackaged distribution at:
+
+		 <http://github.com/marcomaggi/atsofa/>
+
+which makes use of the GNU Autotools.
+
+
+Notes for revision 0.4d0
+------------------------
+
+* The major and minor version numbers  of this package match the ones of
+  the required Vicare Scheme package.
+
+* This package is derived from another package r6rs-sofa, which does not
+  exist anymore.
+
+
+### end of file
+# Local Variables:
+# mode: text
+# fill-column: 72
+# paragraph-start: "*"
+# End:

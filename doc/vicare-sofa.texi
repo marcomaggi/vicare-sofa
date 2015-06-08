@@ -1,0 +1,581 @@
+\input texinfo.tex
+@c %**start of header
+@setfilename vicare-sofa.info
+@settitle SOFA for Vicare
+@c %**end of header
+
+@include version.texi
+@include macros.texi
+
+@c page
+@c ------------------------------------------------------------
+@c Values.
+@c ------------------------------------------------------------
+
+@set TITLE                      SOFA for Vicare
+
+@c To be used as @value{PACKAGE} whenever we need to include the full
+@c name of this package.
+@set PACKAGE                    Vicare/@sofa{}
+
+@c To be used as @value{PACKAGE} whenever we need to include the
+@c nickname of the project: the name that is used to compose the
+@c distribution tarball or the web address.
+@set PACKAGE_NICKNAME           vicare-sofa
+
+@c To be used as @value{AUTHOR} whenever we need to include the list of
+@c authors of this document.
+@set AUTHOR                     Marco Maggi
+
+@c To be used as @value{AUTHOR_EMAIL} whenever we need to include the
+@c email of the *single* author of this document.
+@set AUTHOR_EMAIL               @email{marco.maggi.ipsu@@poste.it}
+
+@c To be used as @value{COPYRIGHT_YEARS} whenever we need to include the
+@c list of copyright years.
+@set COPYRIGHT_YEARS            2013, 2014, 2015
+
+@c ------------------------------------------------------------
+
+@set FOREIGN_PACKAGE            @sofa{}
+@set FOREIGN_VERSION            SOFA-Issue: 2013-12-02
+@set FOREIGN_URL                @url{http://www.iausofa.org/}
+@set FOREIGN_SCHEME_LIB         @library{vicare astronomy sofa}
+@set GITHUB_URL                 @url{http://github.com/marcomaggi/@value{PACKAGE_NICKNAME}}
+@set BITBUCKET_URL              @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}}
+@set DOWNLOAD_URL               @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}/downloads}
+@set DOCUMENTATION_URL          @url{http://marcomaggi.github.io/docs/@value{PACKAGE_NICKNAME}.html}
+@set VICARE_HOMEPAGE_URL        @url{http://marcomaggi.github.io/vicare.html}
+
+@macro sofaref{NODE, TITLE}
+@xref{\NODE\,\TITLE\,\TITLE\,iausofa}
+@end macro
+
+@macro sofa{}
+@acronym{SOFA}
+@end macro
+
+@c page
+@c ------------------------------------------------------------
+@c Copyright notice.
+@c ------------------------------------------------------------
+
+@copying
+This document describes version @version{} of @value{PACKAGE}, a
+distribution of Scheme libraries for Vicare Scheme, an @rnrs{6}
+compliant Scheme implementation; it provides bindings for the
+@value{FOREIGN_PACKAGE} C language library.
+
+The package is distributed under the terms of the @gnu{} General Public
+License (@gpl{}) and can be downloaded from:
+
+@center @value{DOWNLOAD_URL}
+
+@noindent
+development takes place at:
+
+@center @value{GITHUB_URL}
+
+@noindent
+and as backup at:
+
+@center @value{BITBUCKET_URL}
+
+@noindent
+@value{FOREIGN_PACKAGE} is available at:
+
+@center @value{FOREIGN_URL}
+
+@noindent
+but it is suggested to use the repackaged distribution at:
+
+@center @url{http://github.com/marcomaggi/atsofa/}
+
+@noindent
+which makes use of the @gnu{} Autotools.
+
+@noindent
+Copyright @copyright{} @value{COPYRIGHT_YEARS} by @value{AUTHOR} @value{AUTHOR_EMAIL}
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the @gnu{} Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with
+Invariant Sections being ``@gnu{} Free Documentation License'' and
+``@gnu{} General Public License'', no Front--Cover Texts, and no
+Back--Cover Texts.  A copy of the license is included in the section
+entitled ``@gnu{} Free Documentation License''.
+@end quotation
+@end copying
+
+@c page
+@c ------------------------------------------------------------
+@c Headers.
+@c ------------------------------------------------------------
+
+@titlepage
+@title @value{TITLE}
+@subtitle Revision @version{}
+@author @value{AUTHOR} @value{AUTHOR_EMAIL}
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@c ------------------------------------------------------------
+
+@ifinfo
+@dircategory Development
+@direntry
+* vicare-sofa: (vicare-sofa). @value{TITLE}.
+@end direntry
+@end ifinfo
+
+@c ------------------------------------------------------------
+
+@ignore
+@syncodeindex tp cp
+@syncodeindex vr cp
+@syncodeindex fn cp
+@end ignore
+
+@c page
+@ifnottex
+@node Top
+@top @value{TITLE}
+
+@insertcopying
+
+@menu
+* overview::                    Overview of the package.
+* astronomy::                   Astronomy functions.
+* vector matrix::               Vector and matrix functions.
+
+Appendices
+
+* Package License::             GNU General Public License.
+* Documentation License::       GNU Free Documentation License.
+* references::                  Bibliography and references.
+
+Indexes
+
+* concept index::               An entry for each concept.
+* function index::              An entry for each function.
+* variable index::              An entry for each variable.
+* type index::                  An entry for each type.
+@end menu
+@end ifnottex
+
+@c page
+@node overview
+@chapter Overview of the package
+
+
+Vicare Scheme is an @rnrs{6} compliant Scheme language implementation in
+the form of a native compiler for x86 architectures, officially
+supporting @gnu{}+Linux systems.  @value{PACKAGE} is a distribution of
+Scheme language libraries for Vicare Scheme; it provides bindings for
+the @value{FOREIGN_PACKAGE} C language library, Standars of Fundamental
+Astronomy.
+
+The International Astronomical Union's @sofa{} Collection consists of
+two libraries of routines, one coded in Fortran 77 the other in
+@acronym{ANSI} C: they implement the same algoritms.  @value{PACKAGE}
+provides an interface for the C language functions.  There is a suite of
+vector/matrix routines and various utilities that underpin the astronomy
+algorithms, which include routines for the following:
+
+@itemize
+@item
+Calendars.
+
+@item
+Time Scales.
+
+@item
+Earth rotation and sidereal time.
+
+@item
+Ephemerides (medium precision).
+
+@item
+Geocentric/geodetic transformations.
+
+@item
+Precession, nutation, polar motion.
+
+@item
+Star space motion.
+
+@item
+Star catalogue conversion.
+@end itemize
+
+The last time the author bothered to update this paragraph, he had
+tested @value{FOREIGN_PACKAGE} version @value{FOREIGN_VERSION}; the
+@value{FOREIGN_PACKAGE} library is available at:
+
+@center @value{FOREIGN_URL}
+
+The package installs a C language library implementing wrapper C
+functions for the C language @value{FOREIGN_PACKAGE} library; on top of this, the
+Scheme library @library{vicare category sofa} exports one binding
+for each @value{FOREIGN_PACKAGE} public function; additionally the library
+@library{vicare category sofa constants} exports one binding for
+each constant value defined in the C language header @file{sofa.h}.
+
+The following Scheme libraries are installed:
+
+The installed libraries are:
+
+@table @library
+@item vicare astronomy sofa
+High level library exporting bindings for some functions with @api{}
+more close to the Scheme style; not all the functions are interfaced in
+this way.  These functions are documented here.
+
+@item vicare astronomy sofa functions
+Low level library exporting one binding for each C language function
+defined by @sofa{}.  The function names are the same as the names of the
+C language functions, and the same are the arguments and return value.
+To use this library we must refer to the original @sofa{} documentation.
+
+@item vicare astronomy sofa constants
+Exports one binding for each of the precomputed constants in the @sofa{}
+library; such bindings are reexported by @library{sofa}.
+
+@item vicare astronomy sofa compat
+Compatibility library for specific Scheme implementations.
+
+@item vicare astronomy sofa syntax-helpers
+Small collection of common helper functions for the implementation of
+macros.
+@end table
+
+Scheme libraries are installed under the directory:
+
+@center @file{$(libdir)/vicare-scheme}
+
+This document contains only a brief description of the functions: refer
+to the @value{FOREIGN_PACKAGE}'s documentation for details.
+
+Here is an example showing how to convert a Gregorian calendar date to
+the corresponding Julian date:
+
+@example
+#!r6rs
+(import (rnrs)
+  (prefix (vicare astronomy sofa) sofa.))
+
+(define iy 2013)        ;;Year in Gregorian calendar.
+(define im 1)           ;;Month in Gregorian calendar.
+(define id 13)          ;;Day in Gregorian calendar.
+
+(let-values (((status mjd0 mjd)
+              (sofa.cal2jd iy im id)))
+   (+ mjd0 mjd 0.5))
+@result{} 2456306.0     ;;Julian day number at 12:00.
+@end example
+
+@c page
+@node astronomy
+@chapter Astronomy functions
+
+
+@menu
+* Calendars::                   Calendars.
+* Ephemerides::                 Ephemerides.
+* FundamentalArgs::             Fundamental args.
+* PrecNutPolar::                Prec nut polar.
+* RotationAndTime::             Rotation and time.
+* SpaceMotion::                 Space motion.
+* StarCatalogs::                Star catalogs.
+* Geodetic/Geocentric::         Geodetic geocentric.
+* Timescales::                  Timescales.
+@end menu
+
+@c page
+@node Calendars
+@section Calendars
+
+
+The following bindings are exported by the library @library{sofa}.
+
+
+@defun cal2jd @var{year} @var{month} @var{day}
+Gregorian Calendar to Julian Date.  @var{year}, @var{month} and
+@var{day} must be exact integers representing the year, month and day
+numbers in the Gregorian calendar.  Return @math{3} values:
+
+@enumerate
+@item
+The status of the operation: an exact integer with value:
+
+@table @code
+@item 0
+The operation was successful.
+
+@item -1
+Bad year number.  The other returned values are invalid.
+
+@item -2
+Bad month number.  The other returned values are invalid.
+
+@item -3
+Bad day number.  The other returned values have been computed.
+@end table
+
+@item
+A flonum representing the zero--point for the Modified Julian Date:
+always @code{2400000.5}.
+
+@item
+A flonum representing Modified Julian Date for @code{0} hours.
+@end enumerate
+
+Notes:
+
+@enumerate
+@item
+The algorithm used is valid from -4800 March 1, but this implementation
+rejects dates before -4799 January 1.
+
+@item
+The Julian Date is returned in two pieces, in the usual SOFA manner,
+which is designed to preserve time resolution.  The Julian Date is
+available as a single number by adding djm0 and djm.
+
+@item
+In early eras the conversion is from the ``Proleptic Gregorian
+Calendar''; no account is taken of the date(s) of adoption of the
+Gregorian Calendar, nor is the AD/BC numbering convention observed.
+@end enumerate
+
+Reference:
+
+@quotation
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 12.92 (p604).
+@end quotation
+@end defun
+
+
+@c page
+@node Ephemerides
+@section Ephemerides
+
+
+No functions in this section.
+
+@c page
+@node FundamentalArgs
+@section Fundamental args
+
+
+No functions in this section.
+
+@c page
+@node PrecNutPolar
+@section Prec nut polar
+
+
+No functions in this section.
+
+@c page
+@node RotationAndTime
+@section Rotation and time
+
+
+No functions in this section.
+
+@c page
+@node SpaceMotion
+@section Space motion
+
+
+No functions in this section.
+
+@c page
+@node StarCatalogs
+@section Star catalogs
+
+
+No functions in this section.
+
+@c page
+@node Geodetic/Geocentric
+@section Geodetic geocentric
+
+
+No functions in this section.
+
+@c page
+@node Timescales
+@section Timescales
+
+
+No functions in this section.
+
+@c page
+@node vector matrix
+@chapter Vector and matrix functions
+
+
+@menu
+* AngleOps::                    Angle operations.
+* BuildRotations::              Build rotations.
+* CopyExtendExtract::           Copy extend extract.
+* Initialization::              Initialization.
+* MatrixOps::                   Matrix operations.
+* MatrixVectorProducts::        Matrix vector products.
+* RotationVectors::             Rotation vectors.
+* SeparationAndAngle::          Separation and angle.
+* SphericalCartesian::          Spherical cartesian.
+* VectorOps::                   Vector operations.
+@end menu
+
+@c page
+@node AngleOps
+@section Angle operations
+
+
+No functions in this section.
+
+@c page
+@node BuildRotations
+@section Build rotations
+
+
+No functions in this section.
+
+@c page
+@node CopyExtendExtract
+@section Copy extend extract
+
+
+No functions in this section.
+
+@c page
+@node Initialization
+@section Initialization
+
+
+No functions in this section.
+
+@c page
+@node MatrixOps
+@section Matrix operations
+
+
+No functions in this section.
+
+@c page
+@node MatrixVectorProducts
+@section Matrix vector products
+
+
+No functions in this section.
+
+@c page
+@node RotationVectors
+@section Rotation vectors
+
+
+No functions in this section.
+
+@c page
+@node SeparationAndAngle
+@section Separation and angle
+
+
+No functions in this section.
+
+@c page
+@node SphericalCartesian
+@section Spherical cartesian
+
+
+No functions in this section.
+
+@c page
+@node VectorOps
+@section Vector operations
+
+
+No functions in this section.
+
+@c page
+@c ------------------------------------------------------------
+@c Appendices.
+@c ------------------------------------------------------------
+
+@include gpl-3.0.texi
+@include fdl-1.3.texi
+
+@c page
+@node references
+@appendix Bibliography and references
+
+
+The documentation of @value{PACKAGE} is available online:
+
+@center @value{DOCUMENTATION_URL}
+
+@noindent
+the latest version of this package can be downloaded from:
+
+@center @value{DOWNLOAD_URL}
+
+@noindent
+development takes place at:
+
+@center @value{GITHUB_URL}
+
+@noindent
+and as backup at:
+
+@center @value{BITBUCKET_URL}
+
+@noindent
+the home page of the Vicare project is at:
+
+@center @value{VICARE_HOMEPAGE_URL}
+
+@noindent
+@value{FOREIGN_PACKAGE} can be found here:
+
+@center @value{FOREIGN_URL}
+
+@noindent
+but it is suggested to use the repackaged distribution at:
+
+@center @url{http://github.com/marcomaggi/atsofa/}
+
+@noindent
+which makes use of the @gnu{} Autotools.
+
+@c page
+@node concept index
+@appendix An entry for each concept
+
+@printindex cp
+
+@node function index
+@appendix An entry for each function.
+
+@printindex fn
+
+@node variable index
+@appendix An entry for each variable.
+
+@printindex vr
+
+@node type index
+@appendix An entry for each type.
+
+@printindex tp
+
+@contents
+@bye
+
+@c end of file
