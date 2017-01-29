@@ -8,7 +8,7 @@
 ;;;
 ;;;
 ;;;
-;;;Copyright (C) 2013, 2014, 2015 Marco Maggi <marco.maggi-ipsu@poste.it>
+;;;Copyright (C) 2013, 2014, 2015, 2017 Marco Maggi <marco.maggi-ipsu@poste.it>
 ;;;
 ;;;This program is free software:  you can redistribute it and/or modify
 ;;;it under the terms of the  GNU General Public License as published by
@@ -25,41 +25,28 @@
 ;;;
 
 
-#!r6rs
+#!vicare
 (library (vicare astronomy sofa compat)
+  (options typed-language)
   (export
     with-local-storage
     define-c-function
     local-storage-ref-c-double)
   (import (except (vicare)
 		  with-local-storage)
-    (prefix (vicare ffi)
-	    ffi.)
-    (prefix (vicare platform words)
-	    words.))
+    (prefix (vicare ffi) ffi::)
+    (prefix (vicare platform words) words::))
 
 
 (define-syntax define-c-function
   (lambda (stx)
-    (define (main stx)
-      (syntax-case stx ()
-	((_ ?retval-type ?c-function-name (?arg-type ...))
-	 (with-syntax
-	     ((RETVAL-TYPE	(%external-type-id->internal-type-id #'?retval-type))
-	      (FUNC-NAME	(symbol->string (syntax->datum #'?c-function-name)))
-	      ((ARG-TYPES ...)	(map %external-type-id->internal-type-id
-				  (syntax->list #'(?arg-type ...)))))
-	   #'(define ?c-function-name
-	       ((ffi.make-c-callout-maker (quote RETVAL-TYPE)
-					  (quote (ARG-TYPES ...)))
-		(ffi.dlsym libsofac FUNC-NAME)))))))
-
-    (define (%external-type-id->internal-type-id type-id)
+    (import (prefix (vicare expander) xp::))
+    (define ({%external-type-id->internal-type-id <top>} type-id)
       (datum->syntax type-id
 		     (%external-type-symbol->internal-type-symbol
 		      (syntax->datum type-id))))
 
-    (define (%external-type-symbol->internal-type-symbol type-sym)
+    (define ({%external-type-symbol->internal-type-symbol <symbol>} type-sym)
       (case type-sym
 	((int)		'signed-int)
 	((int*)		'pointer)
@@ -70,48 +57,62 @@
 	((void*)	'pointer)
 	(else		type-sym)))
 
+    (define (main stx)
+      (syntax-case stx ()
+	((_ ?retval-type ?c-function-name (?arg-type ...))
+	 (with-syntax
+	     ((RETVAL-TYPE	(%external-type-id->internal-type-id #'?retval-type))
+	      (FUNC-NAME	(symbol->string (syntax->datum #'?c-function-name)))
+	      ((ARG-TYPES ...)	(map %external-type-id->internal-type-id
+				  (xp::syntax->list #'(?arg-type ...)))))
+	   #'(define ?c-function-name
+	       ((ffi::make-c-callout-maker (quote RETVAL-TYPE)
+					  (quote (ARG-TYPES ...)))
+		(ffi::dlsym libsofac FUNC-NAME)))))))
+
     (main stx)))
 
 
 (define-syntax with-local-storage
   (lambda (stx)
-    (define (main stx)
-      (syntax-case stx ()
-	((_ ((?var ?size) ...) ?body0 ?body ...)
-	 (with-syntax
-	     (((SIZE ...) (map %external-type-id->internal-type-size
-			    (syntax->list #'(?size ...)))))
-	   ;;FIXME This ugly  hack of converting to list  and the applying
-	   ;;to VALUES is needed  because WITH-LOCAL-STORAGE is broken and
-	   ;;does not return  multiple values.  (Marco Maggi;  Mon Jan 14,
-	   ;;2013)
-	   #'(apply values
-		    (ffi.with-local-storage (vector SIZE ...)
-		      (lambda (?var ...)
-			(call-with-values
-			    (lambda () ?body0 ?body ...)
-			  list))))))))
-
-    (define (%external-type-id->internal-type-size type-id)
+    (import (prefix (vicare expander) xp::))
+    (define ({%external-type-id->internal-type-size <top>} type-id)
       (case (syntax->datum type-id)
-	((int)		#'words.SIZEOF_INT)
-	((double)	#'words.SIZEOF_DOUBLE)
+	((int)		#'words::SIZEOF_INT)
+	((double)	#'words::SIZEOF_DOUBLE)
 	(else
 	 (synner "unknown type identifier" type-id))))
 
     (define (synner message subform)
       (syntax-violation 'with-local-storage message stx subform))
 
+    (define (main stx)
+      (syntax-case stx ()
+	((_ ((?var ?size) ...) ?body0 ?body ...)
+	 (with-syntax
+	     (((SIZE ...) (map %external-type-id->internal-type-size
+			    (xp::syntax->list #'(?size ...)))))
+	   ;;FIXME This ugly  hack of converting to list  and the applying
+	   ;;to VALUES is needed  because WITH-LOCAL-STORAGE is broken and
+	   ;;does not return  multiple values.  (Marco Maggi;  Mon Jan 14,
+	   ;;2013)
+	   #'(apply values
+		    (ffi::with-local-storage (vector SIZE ...)
+		      (lambda (?var ...)
+			(call-with-values
+			    (lambda () ?body0 ?body ...)
+			  list))))))))
+
     (main stx)))
 
 (define-syntax local-storage-ref-c-double
   (syntax-rules ()
     ((_ ?bv)
-     (ffi.pointer-ref-c-double ?bv 0))))
+     (ffi::pointer-ref-c-double ?bv 0))))
 
 
 (define libsofac
-  (ffi.open-shared-object "libsofac.so.1"))
+  (ffi::open-shared-object "libsofac.so.1"))
 
 
 ;;;; done
@@ -120,5 +121,5 @@
 
 ;;; end of file
 ;; Local Variables:
-;; eval: (put 'ffi.with-local-storage 'scheme-indent-function 1)
+;; eval: (put 'ffi::with-local-storage 'scheme-indent-function 1)
 ;; End:

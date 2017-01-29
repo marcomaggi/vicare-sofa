@@ -33,7 +33,7 @@
 
 @c To be used as @value{COPYRIGHT_YEARS} whenever we need to include the
 @c list of copyright years.
-@set COPYRIGHT_YEARS            2013, 2014, 2015
+@set COPYRIGHT_YEARS            2013, 2014, 2015, 2017
 
 @c ------------------------------------------------------------
 
@@ -228,26 +228,26 @@ The following Scheme libraries are installed:
 
 The installed libraries are:
 
-@table @library
-@item vicare astronomy sofa
+@table @asis
+@item @library{vicare astronomy sofa}
 High level library exporting bindings for some functions with @api{}
 more close to the Scheme style; not all the functions are interfaced in
 this way.  These functions are documented here.
 
-@item vicare astronomy sofa functions
+@item @library{vicare astronomy sofa functions}
 Low level library exporting one binding for each C language function
 defined by @sofa{}.  The function names are the same as the names of the
 C language functions, and the same are the arguments and return value.
 To use this library we must refer to the original @sofa{} documentation.
 
-@item vicare astronomy sofa constants
+@item @library{vicare astronomy sofa constants}
 Exports one binding for each of the precomputed constants in the @sofa{}
 library; such bindings are reexported by @library{sofa}.
 
-@item vicare astronomy sofa compat
+@item @library{vicare astronomy sofa compat}
 Compatibility library for specific Scheme implementations.
 
-@item vicare astronomy sofa syntax-helpers
+@item @library{vicare astronomy sofa syntax-helpers}
 Small collection of common helper functions for the implementation of
 macros.
 @end table

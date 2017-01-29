@@ -46,8 +46,7 @@ FASL_PREREQUISTES	= $(lib_LTLIBRARIES) $(libvicare_sofa_la_LINK)
 EXTRA_DIST += \
 	lib/libraries.scm			\
 	$(scriptsdir)/build-makefile-rules.sps	\
-	$(scriptsdir)/compile-all.sps		\
-	$(scriptsdir)/compile-nausicaa.sps
+	$(scriptsdir)/compile-all.sps
 
 VICARE_BUILD_DEPS	= \
 	$(VICARE_COMPILE_RUN) \

@@ -1,4 +1,4 @@
-Subject: [announce] Vicare/SOFA revision 0.4d0
+Subject: [announce] Vicare/SOFA revision 0.4d1
 
 			      Vicare/SOFA
 			      ===========
@@ -64,6 +64,12 @@ but it is suggested to use the repackaged distribution at:
 		 <http://github.com/marcomaggi/atsofa/>
 
 which makes use of the GNU Autotools.
+
+
+Notes for revision 0.4d1
+------------------------
+
+* Updated to support Vicare Scheme 0.4d1.
 
 
 Notes for revision 0.4d0
